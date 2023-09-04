@@ -1,0 +1,38 @@
+{%extends 'worker_functionality/base.html'%}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            <td>Mobile</td>
+            <td>Position</td>
+            <td>
+                <a href="{% url 'worker_insert'%}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {%for worker in worker_list%}
+            <tr>
+                <td>{{worker.fullname}}</td>
+                <td>{{worker.mobile}}</td>
+                <td>{{worker.position}}</td>
+                <td>
+                    <a href="{%url 'worker_update' worker.id%}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'worker_delete' worker.id%}" method="post" class="d-inline">
+                        {%csrf_token%}
+                        <button type="submit" class="btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+        {%endfor%}
+    </tbody>
+</table>
+
+{%endblock content%}
